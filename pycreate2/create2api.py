@@ -69,6 +69,10 @@ class Create2(object):
 		self.close()  # close serial port
 		time.sleep(0.1)
 
+	def _write_opcode_and_sleep(self, opcode):
+		self.SCI.write(opcode)
+		time.sleep(self.sleep_timer)
+
 	def close(self):
 		"""
 		Closes up serial ports and terminates connection to the Create2
@@ -83,8 +87,7 @@ class Create2(object):
 		before sending any other commands to the OI.
 		"""
 		# self.SCI.open()
-		self.SCI.write(OPCODES.START)
-		time.sleep(self.sleep_timer)
+		self._write_opcode_and_sleep(OPCODES.START)
 
 	def getMode(self):
 		"""
@@ -136,24 +139,21 @@ class Create2(object):
 		longer respond to commands. Use this command when you are finished
 		working with the robot.
 		"""
-		self.SCI.write(OPCODES.STOP)
-		time.sleep(self.sleep_timer)
+		self._write_opcode_and_sleep(OPCODES.STOP)
 
 	def safe(self):
 		"""
 		Puts the Create 2 into safe mode. Blocks for a short (<.5 sec) amount
 		of time so the bot has time to change modes.
 		"""
-		self.SCI.write(OPCODES.SAFE)
-		time.sleep(self.sleep_timer)
+		self._write_opcode_and_sleep(OPCODES.SAFE)
 
 	def full(self):
 		"""
 		Puts the Create 2 into full mode. Blocks for a short (<.5 sec) amount
 		of time so the bot has time to change modes.
 		"""
-		self.SCI.write(OPCODES.FULL)
-		time.sleep(self.sleep_timer)
+		self._write_opcode_and_sleep(OPCODES.FULL)
 
 	# def seek_dock(self):
 	# 	self.SCI.write(OPCODES.SEEK_DOCK)
@@ -163,8 +163,7 @@ class Create2(object):
 		Puts the Create 2 into Passive mode. The OI can be in Safe, or
 		Full mode to accept this command.
 		"""
-		self.SCI.write(OPCODES.POWER)
-		time.sleep(self.sleep_timer)
+		self._write_opcode_and_sleep(OPCODES.POWER)
 
 	# ------------------ Drive Commands ------------------
 
