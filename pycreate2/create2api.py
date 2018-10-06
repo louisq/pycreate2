@@ -155,9 +155,6 @@ class Create2(object):
 		"""
 		self._write_opcode_and_sleep(OPCODES.FULL)
 
-	# def seek_dock(self):
-	# 	self.SCI.write(OPCODES.SEEK_DOCK)
-
 	def power(self):
 		"""
 		Puts the Create 2 into Passive mode. The OI can be in Safe, or
@@ -384,3 +381,17 @@ class Create2(object):
 		sensors = SensorPacketDecoder(packet_byte_data)
 
 		return sensors
+
+	# ------------------------ Cleaning ----------------------------
+
+	def clean(self):
+		self._write_opcode_and_sleep(OPCODES.CLEAN)
+
+	def max(self):
+		self._write_opcode_and_sleep(OPCODES.MAX)
+
+	def spot(self):
+		self._write_opcode_and_sleep(OPCODES.SPOT)
+
+	def seek_dock(self):
+		self._write_opcode_and_sleep(OPCODES.SEEK_DOCK)
